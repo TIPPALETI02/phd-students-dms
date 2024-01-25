@@ -1,0 +1,46 @@
+
+get http://localhost:5000
+
+
+###
+get http://localhost:5000/students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+###
+get http://localhost:5000/admins
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+
+###
+post http://localhost:5000/students/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEyMDc0OX0.i5cg2seJ_wyag-s0G1Y5kBFapS2heY33ZA8bcL96aS4
+Content-Type: application/json
+
+{
+  "admn_no": 1236355,
+  "name": "John Doe",
+  "mode": "Full-time",
+  "year": 2024,
+  "branch": "Computer Science",
+  "guide_id": 1,
+  "co_guide_id": 2,
+  "phone": "1234567890",
+  "email": "john.doe2@example.com",
+  "address": "123 Main St, City",
+  "gender": "Male",
+  "category": "General",
+  "type": "Regular",
+  "qualification": "M.Tech",
+  "research_topic": "Data Science"
+}
+
+
+
+###
+post http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "super-admin@rnd.jntua.ac.in",
+    "password": "Admin@123"
+}
