@@ -4,7 +4,6 @@ const cors = require('cors');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 
-const adminRoute = require('./routes/adminRoute');
 
 // Create a new Express application
 const app = express();
@@ -80,12 +79,18 @@ app.get('/students', verifyToken, (req, res) => {
         const limit = Math.min(req.params.limit, 10) || 10;
         const offset = (page - 1) * limit;
 
-        const query = `SELECT * FROM students LIMIT ${limit} OFFSET ${offset}`;
-        db.query(query, (err, result) => {
-            if (err) {
-                console.log(err);
+        const countQuery = 'SELECT COUNT(*) as totalCount FROM students';
+        db.query(countQuery, (countErr, countResults) => {
+            if (countErr) {
+                console.log(countErr);
+                res.status(500).json({ error: 'Unable to get data...' });
+                return;
             }
-            res.status(200).json({ students: result });
+            const totalCount = countResults[0].totalCount;
+            const query = `SELECT * FROM students LIMIT ${limit} OFFSET ${offset}`;
+            db.query(query, (err, results) => {
+                res.status(200).json({ totalCount, students: results });
+            });
         });
     } catch (error) {
         console.log(error);
