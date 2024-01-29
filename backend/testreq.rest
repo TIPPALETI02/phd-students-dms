@@ -1,0 +1,47 @@
+
+get http://localhost:5000
+
+
+###
+get http://localhost:5000/students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+###
+get http://localhost:5000/admins
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+
+###
+post http://localhost:5000/students/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEyMDc0OX0.i5cg2seJ_wyag-s0G1Y5kBFapS2heY33ZA8bcL96aS4
+Content-Type: application/json
+
+{
+  "admn_no": "18PH0406",
+    "name": "Uppana Sudha Rani",
+    "mode": "PT",
+    "year": 2018,
+    "branch": "ECE",
+    "guide_id": 1,
+    "co_guide_id": 0,
+    "phone": "8463948796",
+      "address": "Flat No. 103, Asst Professors Quarters, JNTUA Kalikiri",
+      "gender": "Female",
+      "category": "BC-D",
+      "research_topic": "N/A",
+      "qualification": "M.Tech",
+      "doa": "2019-01-27T18:30:00.000Z",
+      "fatherORhusband": "U. Venkata Ravi",
+      "degree_awarded": "pending"
+}
+
+
+
+###
+post http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "super-admin@rnd.jntua.ac.in",
+    "password": "Admin@123"
+}
