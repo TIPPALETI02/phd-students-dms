@@ -9,10 +9,11 @@ import {
 import MainHome from "./pages/MainHome";
 import Login from "./pages/Login";
 import NewStudent from "./pages/NewStudent";
-import Cancellation from "./pages/Cancellations";
+import Extension from "./pages/Extension";
 import VivaVoceHome from "./pages/VivaVoceHome";
 import AccountsHome from "./pages/AccountsHome";
 import RegistrationHome from "./pages/RegistrationHome";
+import NewRegistration from "./pages/NewRegistration";
 
 
 function App() {
@@ -27,16 +28,20 @@ function App() {
       element: <Login />,
     },
     {
-      path: "/registrations",
+      path: "/registration",
       element: <RegistrationHome />,
+    },
+    {
+      path: "/registrations/add",
+      element: <NewRegistration />,
     },
     {
       path: "/registrations/newstudent",
       element: <NewStudent />,
     },
     {
-      path: "/cancellation",
-      element: <Cancellation />,
+      path: "/extension",
+      element: <Extension />,
     },
     {
       path: "/vivavoce",

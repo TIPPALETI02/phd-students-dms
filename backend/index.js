@@ -1,7 +1,7 @@
 // Package Imports
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 
 
@@ -21,6 +21,67 @@ const db = mysql.createConnection({
     password: '123456',
     database: 'phd_sms'
 });
+
+
+/*
+mysql> desc admins;
++----------+--------------------------------------------------------------+------+-----+---------+----------------+
+| Field    | Type                                                         | Null | Key | Default | Extra          |
++----------+--------------------------------------------------------------+------+-----+---------+----------------+
+| admin_id | int                                                          | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255)                                                 | NO   |     | NULL    |                |
+| email    | varchar(255)                                                 | NO   | UNI | NULL    |                |
+| password | varchar(255)                                                 | YES  |     | NULL    |                |
+| role     | enum('Super_Admin','Admin')                                  | NO   |     | NULL    |                |
+| access   | enum('All','Registration','Extension','Accounts','Vivavoce') | NO   |     | NULL    |                |
++----------+--------------------------------------------------------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> desc guides;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| guide_id | int          | NO   | PRI | NULL    |       |
+| name     | varchar(255) | NO   |     | NULL    |       |
+| email    | varchar(255) | NO   | UNI | NULL    |       |
+| phone    | varchar(15)  | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc students;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| admn_no        | int          | NO   | PRI | NULL    |       |
+| name           | varchar(255) | NO   |     | NULL    |       |
+| mode           | varchar(50)  | YES  |     | NULL    |       |
+| year           | int          | NO   |     | NULL    |       |
+| branch         | varchar(50)  | YES  |     | NULL    |       |
+| guide_id       | int          | YES  | MUL | NULL    |       |
+| co_guide_id    | int          | YES  | MUL | NULL    |       |
+| phone          | varchar(15)  | YES  |     | NULL    |       |
+| email          | varchar(255) | NO   | UNI | NULL    |       |
+| address        | text         | YES  |     | NULL    |       |
+| gender         | varchar(10)  | YES  |     | NULL    |       |
+| category       | varchar(50)  | YES  |     | NULL    |       |
+| type           | varchar(50)  | YES  |     | NULL    |       |
+| qualification  | varchar(255) | YES  |     | NULL    |       |
+| research_topic | text         | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+15 rows in set (0.01 sec)
+
+mysql> desc subjects;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| subject_id | int          | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| credits    | int          | YES  |     | NULL    |                |
+| mode       | varchar(255) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+*/
 
 // Connect to MySQL
 db.connect((err) => {
@@ -120,6 +181,45 @@ app.post('/students/add', verifyToken, function (req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error occurred while adding student' });
+    }
+});
+
+app.get('/guides', verifyToken, async (req, res) => {
+    try {
+        const query = `SELECT * FROM guides`;
+        db.query(query, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            res.status(200).json({ guides: result });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error occurred while fetching guides' });
+    }
+});
+
+app.post('/guides/add', verifyToken, async function (req, res) {
+    try {
+        const { name, email, phone } = req.body;
+
+        if (!name || !email || !phone) {
+            return res.status(400).json({ message: 'Please fill all the fields' });
+        }
+
+        const query = `INSERT INTO Guides (name, email, phone) VALUES ('${name}', '${email}', '${phone}');`;
+        // console.log(query);
+        db.query(query, (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ message: 'Error occured while adding the guide' });
+            }
+            // console.log(result);
+            res.status(200).json({ message: 'Guide added successfully' });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error occurred while adding guide' });
     }
 });
 
