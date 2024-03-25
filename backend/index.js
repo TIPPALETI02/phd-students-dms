@@ -16,9 +16,9 @@ app.use(express.json());
 // MySQL
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'phd_sms_app',
-    port: 3307,
-    password: '123456',
+    user: 'root',
+    port: 3306,
+    password: 'Jaya@252',
     database: 'phd_sms'
 });
 

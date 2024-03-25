@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../assets/css/addstudent.css'
+import '../assets/css/addstudentstyle.css'
 
 const AddStudentForm = ({ onAddStudent }) => {
     const [newStudent, setNewStudent] = useState({
@@ -57,68 +57,88 @@ const AddStudentForm = ({ onAddStudent }) => {
     return (
         <form onSubmit={handleSubmit}>
             {/* Add input fields based on your student data structure */}
-            <label>
-                Admission Number:
-                <input type="text" name="admn_no" value={newStudent.admn_no} onChange={handleInputChange} />
-            </label>
-            <label>
-                Name:
-                <input type="text" name="name" value={newStudent.name} onChange={handleInputChange} />
-            </label>
-            <label>
-                Mode:
-                <input type="text" name="mode" value={newStudent.mode} onChange={handleInputChange} />
-            </label>
-            <label>
-                Year:
-                <input type="text" name="year" value={newStudent.year} onChange={handleInputChange} />
-            </label>
-            <label>
-                Branch:
-                <input type="text" name="branch" value={newStudent.branch} onChange={handleInputChange} />
-            </label>
-            <label>
-                Guide ID:
-                <input type="text" name="guide_id" value={newStudent.guide_id} onChange={handleInputChange} />
-            </label>
-            <label>
-                Co-Guide ID:
-                <input type="text" name="co_guide_id" value={newStudent.co_guide_id} onChange={handleInputChange} />
-            </label>
-            <label>
-                Phone:
-                <input type="text" name="phone" value={newStudent.phone} onChange={handleInputChange} />
-            </label>
-            <label>
-                Address:
-                <input type="text" name="address" value={newStudent.address} onChange={handleInputChange} />
-            </label>
-            <label>
-                Gender:
-                <input type="text" name="gender" value={newStudent.gender} onChange={handleInputChange} />
-            </label>
-            <label>
-                Category:
-                <input type="text" name="category" value={newStudent.category} onChange={handleInputChange} />
-            </label>
-            <label>
-                Research Topic:
-                <input type="text" name="research_topic" value={newStudent.research_topic} onChange={handleInputChange} />
-            </label>
-            <label>
-                Qualification:
-                <input type="text" name="qualification" value={newStudent.qualification} onChange={handleInputChange} />
-            </label>
-            <label>
-                Date of Admission:
-                <input type="text" name="doa" value={newStudent.doa} onChange={handleInputChange} />
-            </label>
-            <label>
-                Father/Husband Name:
-                <input type="text" name="fatherORhusband" value={newStudent.fatherORhusband} onChange={handleInputChange} />
-            </label>
-
-            <button type="submit">Add Student</button>
+            <div className="form-group">
+          <label htmlFor="admn_no">Admission Number:</label>
+          <input type="text" id="admn_no" name="admn_no" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="mode">Mode:</label>
+          <select id="mode" name="mode">
+            <option value="PartTime">PartTime</option>
+            <option value="FullTime">FullTime</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="year">Year:</label>
+          <input type="text" id="year" name="year" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="branch">Branch:</label>
+          <select id="branch" name="Branch">
+            <option value="CE">CE</option>
+            <option value="EEE">EEE</option>
+            <option value="ME">ME</option>
+            <option value="ECE">ECE</option>
+            <option value="CSE">CSE</option>
+            <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemical">Chemical</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="guide_id">Guide ID:</label>
+          <input type="text" id="guide_id" name="guide_id" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="co_guide_id">Co-Guide ID:</label>
+          <input type="text" id="co_guide_id" name="co_guide_id" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone:</label>
+          <input type="text" id="phone" name="phone" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Address:</label>
+          <input type="text" id="address" name="address" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="gender">Gender:</label>
+          <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          <input type="text" id="category" name="category" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="research_topic">Research Topic:</label>
+          <input type="text" id="research_topic" name="research_topic" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="qualification">Qualification:</label>
+          <input type="text" id="qualification" name="qualification" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="doa">Date of Admission:</label>
+          <input type="date" id="doa" name="doa" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="fatherORhusband">Father/Husband Name:</label>
+          <input type="text" id="fatherORhusband" name="fatherORhusband" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="status">Status:</label>
+          <input type="text" id="status" name="status" value="enrolled" readOnly />
+        </div>
+        <button type="submit">Add Student</button>
         </form>
     );
 };
