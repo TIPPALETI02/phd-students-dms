@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import '../assets/css/addstudentstyle.css'
+import '../assets/css/addstudentstyle.css';
+
 
 const AddStudentForm = ({ onAddStudent }) => {
+  
     const [newStudent, setNewStudent] = useState({
         admn_no: '',
         name: '',
@@ -144,3 +146,4 @@ const AddStudentForm = ({ onAddStudent }) => {
 };
 
 export default AddStudentForm;
+
