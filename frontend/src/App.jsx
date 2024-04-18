@@ -14,6 +14,13 @@ import VivaVoceHome from "./pages/VivaVoceHome";
 import AccountsHome from "./pages/AccountsHome";
 import RegistrationHome from "./pages/RegistrationHome";
 import NewRegistration from "./pages/NewRegistration";
+import Accounts1 from "./components/Accounts3";
+import Accounts2 from "./components/Accounts2";
+import Accounts3 from "./components/Accounts1";
+import ViewStudentsData from "./pages/ViewStudentsData";
+import AdminsData from "./pages/AdminsData";
+import GuidesData from "./pages/GuidesData";
+import GuideChanges from "./pages/GuideChanges";
 
 
 function App() {
@@ -28,12 +35,20 @@ function App() {
       element: <Login />,
     },
     {
-      path: "/registration",
-      element: <RegistrationHome />,
+      path: '/students',
+      element: <ViewStudentsData />
     },
     {
-      path: "/registrations/add",
-      element: <NewRegistration />,
+      path: '/guides',
+      element: <GuidesData />
+    },
+    {
+      path: '/admins',
+      element: <AdminsData />
+    },
+    {
+      path: "/registration",
+      element: <RegistrationHome />,
     },
     {
       path: "/registrations/newstudent",
@@ -44,6 +59,10 @@ function App() {
       element: <Extension />,
     },
     {
+      path: "/guides/changes",
+      element: <GuideChanges />,
+    },
+    {
       path: "/vivavoce",
       element: <VivaVoceHome />,
     },
@@ -52,8 +71,20 @@ function App() {
       element: <AccountsHome />,
     },
     {
+      path: "/accounts/student",
+      element: <Accounts1 />,
+    },
+    {
+      path: "/accounts/second",
+      element: <Accounts2 />,
+    },
+    {
+      path: "/accounts/third",
+      element: <Accounts3 />,
+    },
+    {
       path: "/*",
-      element: <div>Page Not Found</div>,
+      element: <center><h1>Page Not Found</h1></center>,
     }
   ]);
 

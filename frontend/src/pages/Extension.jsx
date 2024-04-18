@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import jntuLogo from '../assets/images/Jntua.png'; // Add import for the JNTU logo
-import './App.css';
 
 function App() {
     // State variables
@@ -35,9 +34,33 @@ function App() {
                 <img src={jntuLogo} alt="JNTUA Logo" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
 
                 <h1>Jawaharlal Nehru Technological University Anantapur</h1>
-                <h3>Extension And Cancellation Of PHD Students</h3>
+                <h3>Extension And Cancellation Of Ph.D Students</h3>
 
             </header>
+
+            <button type="button" className="view-students" style={{
+                backgroundColor: '#3498db',
+                color: '#fff',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                display: 'block',
+                margin: '20px auto'
+            }} onClick={() => window.location.href = '/students'}>View Students Data</button>
+
+            <button type="button" className="view-students" style={{
+                backgroundColor: '#3498db',
+                color: '#fff',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                display: 'block',
+                margin: '20px auto'
+            }} onClick={() => window.location.href = '/guides/changes'}>Change Guides Requests</button>
+
+
             <main style={{ maxWidth: '800px', margin: '20px auto', padding: '20px', backgroundColor: '#fff', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', borderRadius: '5px' }}>
                 <h2>Welcome PhD Students!</h2>
                 <p>Do you want to extend or cancel your enrollment in the PhD program?</p>

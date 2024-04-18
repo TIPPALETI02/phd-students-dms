@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function RegistrationHome() {
+function ViewStudentsData() {
 
     const [open, setOpen] = React.useState(false);
     const [studentsData, setStudentsData] = React.useState(null);
@@ -39,14 +39,8 @@ function RegistrationHome() {
         <div>
             <h1>Students Details</h1>
             <DisplayStudents students={studentsData} />
-
-            <center style={{ marginTop: '30px' }}>
-                <Button variant="contained" color="primary" onClick={() => navigate('/registrations/newstudent')}>Add New Student</Button>
-                <br />
-                <Button style={{ marginTop: '20px' }} variant="contained" color="primary" onClick={() => navigate('/guides')}>View guides Data</Button>
-            </center>
         </div>
     )
 }
 
-export default RegistrationHome
+export default ViewStudentsData;

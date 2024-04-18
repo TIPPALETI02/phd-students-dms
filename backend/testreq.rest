@@ -3,8 +3,35 @@ get http://localhost:5000
 
 
 ###
-get http://localhost:5000/students
+get http://localhost:5000/guides
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+###
+get http://localhost:5000/accounts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
+###
+POST http://localhost:5000/accounts/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+Content-Type: application/json
+
+{
+      "StudentID": "18PH0407",
+      "DDNumber": "080620",
+      "AmountPaid": "20850.00",
+      "DatePaid": "2020-07-29",
+      "PaymentType": "N/A"
+    }
+
+#####
+get http://localhost:5000/students/18PH0406
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEyMDc0OX0.i5cg2seJ_wyag-s0G1Y5kBFapS2heY33ZA8bcL96aS4
+
+
+###
+get http://localhost:5000/accounts/18PH0407
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEwODA1OH0.Iy4YdSI9qT9AHNZD12K3bumO7pkd5IEVHNI3wyuZjzY
+
 
 ###
 get http://localhost:5000/admins
@@ -17,14 +44,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwib
 Content-Type: application/json
 
 {
-  "admn_no": "18PH0406",
-    "name": "Uppana Sudha Rani",
-    "mode": "PT",
-    "year": 2018,
-    "branch": "ECE",
-    "guide_id": 1,
-    "co_guide_id": 0,
-    "phone": "8463948796",
+      "admn_no": "18PH0406",
+      "name": "Uppana Sudha Rani",
+      "mode": "PT",
+      "year": 2018,
+      "branch": "ECE",
+      "guide_id": 1,
+      "co_guide_id": 0,
+      "phone": "8463948796",
       "address": "Flat No. 103, Asst Professors Quarters, JNTUA Kalikiri",
       "gender": "Female",
       "category": "BC-D",
@@ -32,10 +59,38 @@ Content-Type: application/json
       "qualification": "M.Tech",
       "doa": "2019-01-27T18:30:00.000Z",
       "fatherORhusband": "U. Venkata Ravi",
-      "degree_awarded": "pending"
+      "status": "enrolled"
 }
 
 
+
+###
+post http://localhost:5000/admins/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEyMDc0OX0.i5cg2seJ_wyag-s0G1Y5kBFapS2heY33ZA8bcL96aS4
+Content-Type: application/json
+
+{
+        "name": "Dr. K. Srinivasulu",
+        "email": "test@gmail.com",
+        "password": "Admin@123",
+        "role": "Super_Admin",
+        "access": "All"
+}
+
+
+#####
+PUT http://localhost:5000/admins/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwibmFtZSI6IkRpcmVjdG9yIiwiZW1haWwiOiJzdXBlci1hZG1pbkBybmQuam50dWEuYWMuaW4iLCJwYXNzd29yZCI6IkFkbWluQDEyMyIsInJvbGUiOiJTdXBlcl9BZG1pbiIsImFjY2VzcyI6IkFsbCIsImlhdCI6MTcwNjEyMDc0OX0.i5cg2seJ_wyag-s0G1Y5kBFapS2heY33ZA8bcL96aS4
+Content-Type: application/json
+
+{
+        "name": "Dr. K. Srinivasulu",
+        "email": "testaccountss@example.com",
+        "password": "Admin@123",
+        "role": "Super_Admin",
+        "access": "All",
+        "admin_id":8
+}
 
 ###
 post http://localhost:5000/login
