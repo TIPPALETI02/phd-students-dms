@@ -11,6 +11,7 @@ const AddStudentForm = ({ onAddStudent }) => {
         guide_id: '',
         co_guide_id: '',
         phone: '',
+        email: '',
         address: '',
         gender: '',
         category: '',
@@ -43,6 +44,7 @@ const AddStudentForm = ({ onAddStudent }) => {
             guide_id: '',
             co_guide_id: '',
             phone: '',
+            email: '',
             address: '',
             gender: '',
             category: '',
@@ -88,6 +90,10 @@ const AddStudentForm = ({ onAddStudent }) => {
             <label>
                 Phone:
                 <input type="text" name="phone" value={newStudent.phone} onChange={handleInputChange} />
+            </label>
+            <label>
+                Email:
+                <input type="text" name="email" value={newStudent.email} onChange={handleInputChange} />
             </label>
             <label>
                 Address:

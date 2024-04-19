@@ -30,6 +30,7 @@ const AddStudentForm = () => {
         guide_id: '',
         co_guide_id: '',
         phone: '',
+        email: '',
         address: '',
         gender: '',
         category: '',
@@ -171,6 +172,10 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Phone:
                 <input required={true} type="text" name="phone" value={formData.phone} onChange={handleChange} />
+            </label>
+            <label className="form-label">
+                Email:
+                <input type="email" name="email" value={formData.email} onChange={handleChange} />
             </label>
             <label className="form-label">
                 Address:

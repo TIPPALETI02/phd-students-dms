@@ -56,7 +56,7 @@ function StudentsDetail({ students }) {
 // import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
-const FIELDS = ['admn_no', 'name', 'mode', 'year', 'branch', 'guide_name', 'co_guide_name', 'phone', 'gender', 'category', 'doa', 'research_topic', 'qualification', 'fatherORhusband', 'address', 'status'];
+const FIELDS = ['admn_no', 'name', 'mode', 'year', 'branch', 'guide_name', 'co_guide_name', 'phone', 'gender', 'category', 'doa', 'research_topic', 'email', 'qualification', 'fatherORhusband', 'address', 'status'];
 
 const VISIBLE_FIELDS = {
     admn_no: 'Admission No',
@@ -75,6 +75,7 @@ const VISIBLE_FIELDS = {
     doa: 'Date of Admission',
     fatherORhusband: 'Father/Husband/Gaurdian',
     status: 'Status',
+    email: 'Email'
 }
 
 export default function StudentsDetails({ students }) {
@@ -86,7 +87,8 @@ export default function StudentsDetails({ students }) {
                     rows={students.map(student => ({
                         ...student,
                         gender: student.gender == 'Female' ? 'F' : student.gender == 'Male' ? 'M' : 'Other',
-                        doa: dateFormat(student.doa)
+                        doa: dateFormat(student.doa),
+                        email: student.email || '-'
                     }))} // Convert date to string
                     getRowId={(row) => row.admn_no}
                     columns={FIELDS.map(field => ({

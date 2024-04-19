@@ -1,5 +1,7 @@
 import React from 'react';
 import './third.css'
+import { dateFormat } from '../util';
+
 function Third() {
 
     const [registrationNumber, setRegistrationNumber] = React.useState('');
@@ -27,8 +29,8 @@ function Third() {
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
-                setAccountsData(data.accounts);
-                setTotalFeePaid(data.accounts.reduce((acc, curr) => acc + parseFloat(curr.AmountPaid), 0));
+                setAccountsData(data.account_details);
+                setTotalFeePaid(data.account_details.reduce((acc, curr) => acc + parseFloat(curr.AmountPaid), 0));
                 getStudentData();
             })
             .catch(err => console.log(err));
@@ -130,7 +132,7 @@ function Third() {
                                                     <tr key={index}>
                                                         <td>{account.DDNumber}</td>
                                                         <td>{account.AmountPaid}</td>
-                                                        <td>{new Date(account.DatePaid).toLocaleDateString()}</td>
+                                                        <td>{dateFormat(account.DatePaid)}</td>
                                                         <td>{account.PaymentType == 'N/A' ? 'Challan' : account.PaymentType || 'Challan'}</td>
                                                     </tr>
                                                 )

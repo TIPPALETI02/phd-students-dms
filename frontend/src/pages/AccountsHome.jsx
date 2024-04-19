@@ -116,7 +116,7 @@ function AccountsHome() {
                 <thead>
                     <tr>
                         <th>Student ID</th>
-                        <th>DD Number</th>
+                        <th>DD/Challan Number</th>
                         <th>Amount Paid</th>
                         <th>Date Paid</th>
                         <th>Payment Type</th>
@@ -132,7 +132,7 @@ function AccountsHome() {
                                     <td>{account.AmountPaid}</td>
                                     {/* <td>{new Date(account.DatePaid).toDateString()}</td> */}
                                     <td>{dateFormat(account.DatePaid)}</td>
-                                    <td>{account.PaymentType}</td>
+                                    <td>{account.PaymentType || 'Challan'}</td>
                                 </tr>
                             )
                         })
