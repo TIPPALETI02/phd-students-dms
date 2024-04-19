@@ -248,25 +248,57 @@ app.get('/guides', verifyToken, async (req, res) => {
 
 app.post('/guides/add', verifyToken, async function (req, res) {
     try {
-        const { name, email, phone } = req.body;
+        const { name, designation, college, phone, email } = req.body;
 
-        if (!name || !email || !phone) {
+        if (!name || !designation || !college) {
             return res.status(400).json({ message: 'Please fill all the fields' });
         }
 
-        const query = `INSERT INTO Guides (name, email, phone) VALUES ('${name}', '${email}', '${phone}');`;
-        // console.log(query);
-        db.query(query, (err, result) => {
+        // Get count of guides
+        const countQuery = `SELECT COUNT(*) as count FROM guides`;
+        db.query(countQuery, (err, countResult) => {
             if (err) {
                 console.log(err);
-                return res.status(400).json({ message: 'Error occured while adding the guide' });
+                return res.status(500).json({ message: 'Error occurred while adding guide' });
             }
-            // console.log(result);
-            res.status(200).json({ message: 'Guide added successfully' });
-        });
+            const guide_id = countResult[0].count;
+            const query = `INSERT INTO Guides (guide_id, name, designation, college, phone, email) VALUES ( ${guide_id}, '${name}', '${designation}', '${college}', '${phone || ''}', '${email || ''}');`;
+            // console.log(query);
+            db.query(query, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(400).json({ message: 'Error occured while adding the guide' });
+                }
+                // console.log(result);
+                res.status(200).json({ message: 'Guide added successfully' });
+            });
+        })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error occurred while adding guide' });
+    }
+});
+
+app.put('/guides/:id', verifyToken, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, designation, college, phone, email } = req.body;
+
+        if (!name || !designation || !college) {
+            return res.status(400).json({ message: 'Please fill all the fields' });
+        }
+
+        const query = `UPDATE Guides SET name = '${name}', designation = '${designation}', college = '${college}', phone = '${phone}', email = '${email}' WHERE guide_id = ${id};`;
+        db.query(query, (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ message: 'Error occured while updating the guide' });
+            }
+            res.status(200).json({ message: 'Guide updated successfully' });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error occurred while updating guide' });
     }
 });
 
@@ -412,7 +444,9 @@ app.delete('/accounts/:id', verifyToken, async (req, res) => {
 app.get('/accounts/:student_id', verifyToken, async (req, res) => {
     try {
         const student_id = req.params.student_id;
-        const query = `SELECT * FROM account_details WHERE StudentID = '${student_id}';`;
+        // const query = `SELECT * FROM account_details WHERE StudentID = '${student_id}';`;
+        // Chronological order
+        const query = `SELECT * FROM account_details WHERE StudentID = '${student_id}' ORDER BY DatePaid ASC;`;
         db.query(query, (err, result) => {
             if (err) {
                 console.log(err);
@@ -436,7 +470,7 @@ app.get('/accounts/:student_id', verifyToken, async (req, res) => {
 
                 // Get the fines history of the student
                 const feeHistory = [];
-                // Get the amount to be paid by the student
+                // Totalt to be paid by the student
                 let amountToBePaid = 0;
 
                 const dateOfAdmission = new Date(student.doa);
@@ -449,18 +483,39 @@ app.get('/accounts/:student_id', verifyToken, async (req, res) => {
                 // Calculate the number of terms elapsed since admission
                 const termsElapsed = Math.floor(months / 6);
 
+                let j = 1;
+
                 // Loop through each term and calculate the fee and fines
                 for (let i = 0; i < termsElapsed; i++) {
                     // Calculate the fee for the term (assuming fixed fee amount)
-                    const termFee = 20000; // Example: Assuming a fixed fee amount of Rs. 20000 per term
+                    const termFee = 20000; // For a fixed fee amount of Rs. 20000 per term
 
                     // Calculate the deadline for payment (7th month of the term)
                     const deadline = new Date(dateOfAdmission);
-                    deadline.setMonth(deadline.getMonth() + (i + 1) * 6);
+                    deadline.setMonth(deadline.getMonth() + (i + 1) * 6 + 1);
+                    // console.log(dateOfAdmission.toLocaleDateString(), deadline.toLocaleDateString());
+                    if (j < result.length && result[j].DatePaid < deadline) {
+                        feeHistory.push({
+                            term: i + 1,
+                            fineAmount: 0,
+                            deadline: deadline.toLocaleDateString(),
+                            dayPaid: result[j].DatePaid.toLocaleDateString(),
+                            daysLate: 0
+                        });
+                        j++;
+                        continue;
+                    }
 
                     // Calculate the fine amount based on the payment rules
                     let fine = 0;
-                    const daysLate = Math.max(0, Math.floor((today - deadline) / (1000 * 60 * 60 * 24)));
+                    let nextPaidDate;
+                    let fineToBePaid = 0;
+                    if (j < result.length) {
+                        nextPaidDate = new Date(result[j].DatePaid);
+                    } else {
+                        nextPaidDate = new Date();
+                    }
+                    const daysLate = Math.max(0, Math.floor((nextPaidDate - deadline) / (1000 * 60 * 60 * 24)));
 
                     if (daysLate > 0) {
                         if (daysLate <= 10) {
@@ -470,8 +525,19 @@ app.get('/accounts/:student_id', verifyToken, async (req, res) => {
                         } else if (daysLate <= 30) {
                             fine = 1500;
                         } else {
-                            fine = termFee / 3; // 1/3 of the fee amount
+                            fine = Math.floor(termFee / 3); // 1/3 of the fee amount
                         }
+                    }
+
+                    if (j < result.length) {
+                        if (fineToBePaid <= result[j].AmountPaid) {
+                            fineToBePaid = 0;
+                        }
+                        else {
+                            fineToBePaid = fineToBePaid - result[j].AmountPaid;
+                        }
+                    } else {
+                        fineToBePaid = termFee + fine;
                     }
 
                     // Add the term fee and fine to the total amount to be paid
@@ -483,12 +549,15 @@ app.get('/accounts/:student_id', verifyToken, async (req, res) => {
                             term: i + 1,
                             fineAmount: fine,
                             deadline: deadline.toLocaleDateString(),
-                            daysLate: daysLate
+                            dayPaid: nextPaidDate.toLocaleDateString(),
+                            daysLate: daysLate,
+                            fineToBePaid
                         });
                     }
+                    j++;
                 }
 
-                res.status(200).json({ account_details: result, student, amountToBePaid, feeHistory });
+                res.status(200).json({ account_details: result, student, dateOfAdmission: dateOfAdmission.toLocaleDateString(), amountToBePaid, feeHistory });
             });
             // res.status(200).json({ accounts: result });
         });

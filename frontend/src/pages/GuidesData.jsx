@@ -127,6 +127,59 @@ function GuidesData() {
     //     }
     // ]
 
+    const addGuide = () => {
+        const name = document.querySelector('input[name="name"]').value;
+        const designation = document.querySelector('input[name="designation"]').value;
+        const college = document.querySelector('input[name="college"]').value;
+        const guide = {
+            name,
+            designation,
+            college
+        }
+        const updatedGuides = [...guides, guide];
+        setGuides(updatedGuides);
+        fetch(`http://localhost:5000/guides/add`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(guide)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                alert('Guide added successfully!');
+            })
+            .catch(err => console.log(err));
+    }
+
+    const updateGuide = (guide) => {
+        const updatedGuides = guides.map(gd => {
+            if (gd.guide_id === guide.guide_id) {
+                return guide;
+            }
+            return gd;
+        });
+        setGuides(updatedGuides);
+        fetch(`http://localhost:5000/guides/${guide.guide_id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(guide)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                alert('Guide updated successfully!');
+            })
+            .catch(err => console.log(err));
+    };
+
     return (
         <div>
             <h1>Guides Data</h1>
@@ -143,6 +196,9 @@ function GuidesData() {
                             <th>Name</th>
                             <th>Designation</th>
                             <th>College</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,12 +208,28 @@ function GuidesData() {
                                     return (
                                         <tr key={guide.guide_id}>
                                             <td>{guide.guide_id}</td>
-                                            <td><input type="text" name="name" defaultValue={guide.name} required /></td>
-                                            <td><input type="text" name="designation" defaultValue={guide.designation} required /></td>
-                                            <td><input type="text" name="college" defaultValue={guide.college} required /></td>
+                                            <td><input type="text" name="gname" defaultValue={guide.name} required /></td>
+                                            <td><input type="text" name="gdesignation" defaultValue={guide.designation} required /></td>
+                                            <td><input type="text" name="gcollege" defaultValue={guide.college} required /></td>
+                                            <td><input type="number" name="gphone" defaultValue={guide.phone} /></td>
+                                            <td><input type="text" name="gemail" defaultValue={guide.email} /></td>
                                             <td>
                                                 <button onClick={() => {
                                                     setUpdating(null);
+                                                    const name = document.querySelector('input[name="gname"]').value;
+                                                    const designation = document.querySelector('input[name="gdesignation"]').value;
+                                                    const college = document.querySelector('input[name="gcollege"]').value;
+                                                    const phone = document.querySelector('input[name="gphone"]').value;
+                                                    const email = document.querySelector('input[name="gemail"]').value;
+                                                    const updatedGuide = {
+                                                        guide_id: guide.guide_id,
+                                                        name,
+                                                        designation,
+                                                        college,
+                                                        phone,
+                                                        email
+                                                    }
+                                                    updateGuide(updatedGuide);
                                                 }}>Update</button>
                                                 <button onClick={() => setUpdating(null)}>Cancel</button>
                                             </td>
@@ -171,6 +243,8 @@ function GuidesData() {
                                             <td>{guide.name}</td>
                                             <td>{guide.designation}</td>
                                             <td>{guide.college}</td>
+                                            <td>{guide.phone || 'N/A'}</td>
+                                            <td>{guide.email || 'N/A'}</td>
                                             <td>
                                                 <button onClick={() => {
                                                     setUpdating(guide.guide_id);
@@ -195,13 +269,7 @@ function GuidesData() {
                 {/* styled form */}
                 <form onSubmit={(e) => {
                     e.preventDefault();
-                    // addAdmin({
-                    //     name: document.querySelector('input[name="name"]').value,
-                    //     email: document.querySelector('input[name="email"]').value,
-                    //     password: document.querySelector('input[name="password"]').value,
-                    //     role: document.querySelector('select[name="role"]').value,
-                    //     access: document.querySelector('select[name="access"]').value
-                    // });
+                    addGuide();
                 }}>
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" required />
@@ -209,6 +277,10 @@ function GuidesData() {
                     <input type="text" name="designation" required />
                     <label htmlFor="college">College:</label>
                     <input type="text" name="college" required />
+                    <label htmlFor="phone">Phone:</label>
+                    <input type="number" name="phone" />
+                    <label htmlFor="email">Email:</label>
+                    <input type="text" name="email" />
                     <button type="submit">Add Guide</button>
                 </form>
             </div >
