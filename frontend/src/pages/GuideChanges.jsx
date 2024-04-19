@@ -164,7 +164,7 @@ function GuideChanges() {
                                         <td>{change.student_id}</td>
                                         <td>{change.old_guide_id.name}</td>
                                         <td>{change.new_guide_id.name}</td>
-                                        <td>{new Date(change.date_of_change).toDateString()}</td>
+                                        <td>{new Date(change.date_of_change).toLocaleDateString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

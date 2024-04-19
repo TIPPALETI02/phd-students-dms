@@ -31,7 +31,15 @@ function MyComponent(props) {
             },
             body: JSON.stringify({ email, password }),
         })
-            .then((res) => res.json())
+            // .then((res) => res.json())
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+                setError('Invalid email or password');
+                alert('Invalid email or password');
+                // throw new Error('Invalid email or password');
+            })
             .then((data) => {
                 // if (data.ok) {
                 localStorage.setItem('token', data.token);
@@ -57,15 +65,15 @@ function MyComponent(props) {
                 />
                 <div className="div-3">
                     <div>
-                        Jawaharlal Nehru Technological University, Anantapur
+                        Jawaharlal Nehru Technological University Anantapur
                     </div>
                     <div>
-                        Reasearch and Development
+                        Research and Development
                     </div>
                 </div>
             </div>
             <div className="div-4">
-                <div className="div-5">Ph.D Students Data Management System</div>
+                <div className="div-5">Ph.D Scholars Data Management System</div>
                 <div className="div-6">Login to Get Started</div>
                 <div className="div-7">Login to your Account</div>
                 <div className="div-8">Email address</div>

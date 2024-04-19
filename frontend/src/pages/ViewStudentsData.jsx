@@ -21,7 +21,7 @@ function ViewStudentsData() {
     };
 
     useEffect(() => {
-        document.title = 'Registrations | PhD Students DMS'
+        document.title = 'Registrations | PhD Scholars DMS'
         fetch('http://localhost:5000/students', {
             method: 'GET',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },

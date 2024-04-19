@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { dateFormat } from '../util';
 
 function AccountsHome() {
 
@@ -129,7 +130,8 @@ function AccountsHome() {
                                     <td>{account.StudentID}</td>
                                     <td>{account.DDNumber}</td>
                                     <td>{account.AmountPaid}</td>
-                                    <td>{new Date(account.DatePaid).toDateString()}</td>
+                                    {/* <td>{new Date(account.DatePaid).toDateString()}</td> */}
+                                    <td>{dateFormat(account.DatePaid)}</td>
                                     <td>{account.PaymentType}</td>
                                 </tr>
                             )

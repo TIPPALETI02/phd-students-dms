@@ -1,5 +1,6 @@
 import * as React from 'react';
 import "../assets/css/DisplayStudents.css";
+import { dateFormat } from '../util.js'
 
 function StudentsDetail({ students }) {
     return (
@@ -85,7 +86,7 @@ export default function StudentsDetails({ students }) {
                     rows={students.map(student => ({
                         ...student,
                         gender: student.gender == 'Female' ? 'F' : student.gender == 'Male' ? 'M' : 'Other',
-                        doa: new Date(student.doa).toLocaleDateString(),
+                        doa: dateFormat(student.doa)
                     }))} // Convert date to string
                     getRowId={(row) => row.admn_no}
                     columns={FIELDS.map(field => ({
