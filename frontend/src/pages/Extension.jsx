@@ -29,12 +29,12 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className="App" style={{ paddingBottom: '40px' }}>
             <header style={{ backgroundColor: '#3498db', color: '#fff', textAlign: 'center', padding: '1rem' }}>
                 <img src={jntuLogo} alt="JNTUA Logo" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
 
-                <h1>Jawaharlal Nehru Technological University Anantapur</h1>
-                <h3>Extension And Cancellation Of Ph.D Students</h3>
+                <h2>Jawaharlal Nehru Technological University Anantapur</h2>
+                <h3>Extension And Cancellation Of Ph.D Scholars</h3>
 
             </header>
 
@@ -61,7 +61,7 @@ function App() {
             }} onClick={() => window.location.href = '/guides/changes'}>Change Guides Requests</button>
 
 
-            <main style={{ maxWidth: '800px', margin: '20px auto', padding: '20px', backgroundColor: '#fff', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', borderRadius: '5px' }}>
+            {/* <main style={{ maxWidth: '800px', margin: '20px auto', padding: '20px', backgroundColor: '#fff', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', borderRadius: '5px' }}>
                 <h2>Welcome PhD Students!</h2>
                 <p>Do you want to extend or cancel your enrollment in the PhD program?</p>
                 <button onClick={() => setShowExtensionForm(true)}>Request Extension</button>
@@ -135,7 +135,7 @@ function App() {
                         <button onClick={submitCancellationRequest} style={{ marginTop: '10px' }}>Submit Cancellation Request</button>
                     </div>
                 )}
-            </main>
+            </main> */}
         </div>
     );
 }

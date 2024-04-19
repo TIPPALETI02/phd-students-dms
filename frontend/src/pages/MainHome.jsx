@@ -16,7 +16,7 @@ function MainHome() {
         if (token == undefined) {
             navigate('/login');
         }
-        document.title = 'Home | PhD Students DMS'
+        document.title = 'Home | PhD Scholars DMS'
         setAdmin(JSON.parse(localStorage.getItem('admin')));
 
     }, []);
@@ -41,14 +41,14 @@ function MainHome() {
                     />
                     <div className="div-3">
                         <div>
-                            Jawaharlal Nehru Technological University, Anantapur
+                            Jawaharlal Nehru Technological University Anantapur
                         </div>
                         <div>
-                            Reasearch and Development
+                            Research and Development
                         </div>
                     </div>
                 </div>
-                <div className="homepage-title">Ph.D Students Data Management System</div>
+                <div className="homepage-title">Ph.D Scholars Data Management System</div>
                 <div className="homepage-subtitle">{admin?.access == 'All' ? admin?.role.replace('_', ' ') : admin?.access + ' ' + admin?.role}</div>
                 {
                     admin?.access == 'All' && <button variant="contained" color="primary" onClick={() => navigate('/admins')}>View/Edit Admins</button>
@@ -62,7 +62,7 @@ function MainHome() {
                     cursor: 'pointer',
                     display: 'block',
                     margin: '10px auto'
-                }} onClick={() => window.location.href = '/students'}>View Students Data</button>
+                }} onClick={() => window.location.href = '/students'}>View Scholars Data</button>
                 {/* Logout button */}
                 <button className='logout-button' style={{ backgroundColor: 'red' }} onClick={() => {
                     localStorage.removeItem('token');
@@ -79,7 +79,7 @@ function MainHome() {
                         <img style={{ width: '20px', height: '40px', marginTop: '20px' }} src={moveForwardLogo} alt='Go to Section' />
                     </div>
                     <p style={{ color: 'black' }}>
-                        Admissions, Pre PhD Courses
+                        Admissions & Scholars Data
                     </p>
                 </div>
                 <div title='Extensions Section' className={`extensions admin-section ${(admin?.access == 'All' || admin?.access == 'Extension') ? '' : 'masked'}`} onClick={() => { navigateToSection('Extension') }}>
@@ -109,7 +109,7 @@ function MainHome() {
                         <img style={{ width: '20px', height: '40px', marginTop: '20px' }} src={moveForwardLogo} alt='Go to Section' />
                     </div>
                     <p style={{ color: 'black' }}>
-                        Pre-Courses, RRM & Viva Voce
+                        Pre-Ph.D Courses, RRM & Viva Voce
                     </p>
                 </div>
             </div>

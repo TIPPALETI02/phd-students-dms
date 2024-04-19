@@ -400,6 +400,7 @@ app.delete('/accounts/:id', verifyToken, async (req, res) => {
                 console.log(err);
                 return res.status(400).json({ message: 'Error occured while deleting the account details' });
             }
+
             res.status(200).json({ message: 'Account details deleted successfully' });
         });
     } catch (error) {
@@ -416,7 +417,80 @@ app.get('/accounts/:student_id', verifyToken, async (req, res) => {
             if (err) {
                 console.log(err);
             }
-            res.status(200).json({ accounts: result });
+            // After getting account details, get the student records, where for each year he have to pay 2 terms of fee.
+            // From the start of 6 months cycle, student can pay fee until 7th month, else if the student pay within 10 days after 7th month of cycle - fine of Rs. 500
+            // If student pay between 10-20 days after 7th month of cycle - fine of Rs. 1000
+            // If student pay after 20 days and below 30 days after 7th month of cycle - fine of Rs. 1500
+            // If student pay after 30 days of 7th month of cycle - fine of 1/3 of fee(i.e., Rs. 20,000)
+            // We should calculate the amount to be paid from date of admission, and then calculate the amount to be paid for each year after adding fines too.
+            // Finally return the amount to be paid yet by the student, and the history of fines if present
+
+            // Get student data
+            const studentQuery = `SELECT * FROM students WHERE admn_no = '${student_id}'`;
+            db.query(studentQuery, (err, studentResult) => {
+                if (err) {
+                    console.log(err);
+                }
+                const student = studentResult[0];
+                // console.log(student);
+
+                // Get the fines history of the student
+                const feeHistory = [];
+                // Get the amount to be paid by the student
+                let amountToBePaid = 0;
+
+                const dateOfAdmission = new Date(student.doa);
+                const today = new Date();
+                const months = (today.getFullYear() - dateOfAdmission.getFullYear()) * 12 + (today.getMonth() - dateOfAdmission.getMonth());
+
+                // Iterate for every term (6 months) from date of admission to today, then calculate the fine to be paid
+                // Go through each year, and account recirds, if the record is not present in that period add fee to be paid+fine
+
+                // Calculate the number of terms elapsed since admission
+                const termsElapsed = Math.floor(months / 6);
+
+                // Loop through each term and calculate the fee and fines
+                for (let i = 0; i < termsElapsed; i++) {
+                    // Calculate the fee for the term (assuming fixed fee amount)
+                    const termFee = 20000; // Example: Assuming a fixed fee amount of Rs. 20000 per term
+
+                    // Calculate the deadline for payment (7th month of the term)
+                    const deadline = new Date(dateOfAdmission);
+                    deadline.setMonth(deadline.getMonth() + (i + 1) * 6);
+
+                    // Calculate the fine amount based on the payment rules
+                    let fine = 0;
+                    const daysLate = Math.max(0, Math.floor((today - deadline) / (1000 * 60 * 60 * 24)));
+
+                    if (daysLate > 0) {
+                        if (daysLate <= 10) {
+                            fine = 500;
+                        } else if (daysLate <= 20) {
+                            fine = 1000;
+                        } else if (daysLate <= 30) {
+                            fine = 1500;
+                        } else {
+                            fine = termFee / 3; // 1/3 of the fee amount
+                        }
+                    }
+
+                    // Add the term fee and fine to the total amount to be paid
+                    amountToBePaid += termFee + fine;
+
+                    // If fine is greater than 0, add a fine record to the fines history
+                    if (fine > 0) {
+                        feeHistory.push({
+                            term: i + 1,
+                            fineAmount: fine,
+                            deadline: deadline.toLocaleDateString(),
+                            daysLate: daysLate
+                        });
+                    }
+                }
+
+                res.status(200).json({ account_details: result, student, amountToBePaid, feeHistory });
+            });
+            // res.status(200).json({ accounts: result });
         });
     } catch (error) {
         console.log(error);

@@ -87,9 +87,9 @@ function Third() {
                                 <tr>
                                     <th>Admn Number</th>
                                     <th>Name</th>
-                                    <th>Mode</th>
+                                    <th>FT/PT</th>
                                     <th>Branch</th>
-                                    <th>Year</th>
+                                    <th>Adm Year</th>
                                     <th>Total Fee Paid</th>
                                 </tr>
                             </thead>
@@ -110,16 +110,15 @@ function Third() {
 
                         <br />
                         {/* Account Data */}
-                        <h1>Account Data</h1>
+                        <h1>Student's Fee Details</h1>
 
                         {
                             accountsData ?
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Roll Number</th>
-                                            <th>DD No/Challan</th>
-                                            <th>Amount Paid</th>
+                                            <th>DD/Challan No.</th>
+                                            <th>Fee Paid</th>
                                             <th>Date Paid</th>
                                             <th>Payment Type</th>
                                         </tr>
@@ -129,11 +128,10 @@ function Third() {
                                             accountsData && accountsData.map((account, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <td>{account.StudentID}</td>
                                                         <td>{account.DDNumber}</td>
                                                         <td>{account.AmountPaid}</td>
-                                                        <td>{new Date(account.DatePaid).toDateString()}</td>
-                                                        <td>{account.PaymentType || 'N/A'}</td>
+                                                        <td>{new Date(account.DatePaid).toLocaleDateString()}</td>
+                                                        <td>{account.PaymentType == 'N/A' ? 'Challan' : account.PaymentType || 'Challan'}</td>
                                                     </tr>
                                                 )
                                             })
