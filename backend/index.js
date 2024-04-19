@@ -186,7 +186,7 @@ app.get('/students', verifyToken, (req, res) => {
 
 app.post('/students/add', verifyToken, function (req, res) {
     try {
-        const { admn_no, name, mode, year, branch, guide_id, phone, address, gender, category, research_topic, qualification, doa, fatherORhusband } = req.body;
+        const { admn_no, name, mode, year, branch, guide_id, phone, address, gender, category, research_topic, qualification, doa, fatherORhusband, email } = req.body;
         let { status, co_guide_id } = req.body;
         // console.log(req.body);
         if (!admn_no || !name || !mode || !year || !branch || !guide_id || !phone || !address || !gender || !category || !research_topic || !qualification || !doa || !fatherORhusband) {
@@ -196,7 +196,7 @@ app.post('/students/add', verifyToken, function (req, res) {
         status = status || null;
         co_guide_id = co_guide_id || 0;
 
-        const query = `INSERT INTO Students (admn_no, name, mode, year, branch, guide_id, co_guide_id, phone, address, gender, category, research_topic, qualification, doa, fatherORhusband, status) VALUES (${admn_no}, '${name}', '${mode}', ${year}, '${branch}', ${guide_id}, ${co_guide_id}, '${phone}', '${address}', '${gender}', ${category}', '${research_topic}', '${qualification}', '${doa}', '${fatherORhusband}', '${status}');`;
+        const query = `INSERT INTO Students (admn_no, name, mode, year, branch, guide_id, co_guide_id, phone, email, address, gender, category, research_topic, qualification, doa, fatherORhusband, status) VALUES (${admn_no}, '${name}', '${mode}', ${year}, '${branch}', ${guide_id}, ${co_guide_id}, '${phone}', '${email || ''}, '${address}', '${gender}', ${category}', '${research_topic}', '${qualification}', '${doa}', '${fatherORhusband}', '${status}');`;
         // console.log(query);
         db.query(query, (err, result) => {
             if (err) {
