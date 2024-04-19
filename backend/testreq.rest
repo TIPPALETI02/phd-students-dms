@@ -44,23 +44,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwib
 Content-Type: application/json
 
 {
-      "admn_no": "18PH0406",
-      "name": "Uppana Sudha Rani",
-      "mode": "PT",
-      "year": 2018,
-      "branch": "ECE",
+      "admn_no": "AD123",
+      "name": "John Doe",
+      "mode": "FT",
+      "year": 2024,
+      "branch": "Computer Science",
       "guide_id": 1,
-      "co_guide_id": 0,
-      "phone": "8463948796",
-      "address": "Flat No. 103, Asst Professors Quarters, JNTUA Kalikiri",
-      "gender": "Female",
-      "category": "BC-D",
-      "research_topic": "N/A",
-      "qualification": "M.Tech",
-      "doa": "2019-01-27T18:30:00.000Z",
-      "fatherORhusband": "U. Venkata Ravi",
-      "status": "enrolled"
-}
+      "co_guide_id": 2,
+      "phone": "234567890",
+      "address": "123 Main St, City, Country",
+      "gender": "Male",
+      "category": "General",
+      "research_topic": "Machine Learning",
+      "qualification": "Bachelor in Computer Science",
+      "doa": "2024-04-19",
+      "fatherORhusband": "Father",
+      "status": "Active",
+      "email": "john@example.com"
+    }
 
 
 
