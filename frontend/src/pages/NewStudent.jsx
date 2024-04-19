@@ -80,6 +80,7 @@ const AddStudentForm = () => {
 
             if (response.ok) {
                 console.log('Student added successfully!');
+                alert('Student added successfully!');
                 navigate('/registration');
                 // You may want to update the UI or perform additional actions upon success
 
@@ -120,7 +121,10 @@ const AddStudentForm = () => {
  */}
 
     return (
-        <form onSubmit={handleSubmit(handleAddStudent)} className="add-student-form">
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            handleAddStudent(formData);
+        }} className="add-student-form">
             <h1>Add New Student</h1>
             <label className="form-label">
                 Admission Number:
@@ -133,6 +137,7 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Mode:
                 <select required={true} name="mode" value={formData.mode} onChange={handleChange}>
+                    <option value="">Select Mode</option>
                     <option value="FT">Full Time</option>
                     <option value="PT">Part Time</option>
                 </select>
@@ -144,6 +149,7 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Branch:
                 <select required={true} name="branch" value={formData.branch} onChange={handleChange}>
+                    <option value="">Select Branch</option>
                     <option value="CSE">CSE</option>
                     <option value="ECE">ECE</option>
                     <option value="EEE">EEE</option>
@@ -155,6 +161,7 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Guide :
                 <select required={true} name="guide_id" value={formData.guide_id} onChange={handleChange}>
+                    <option value="">Select Guide</option>
                     {guidesData?.map(guide => (
                         <option key={guide.guide_id} value={guide.guide_id}>{guide.name}</option>
                     ))}
@@ -163,6 +170,7 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Co-Guide :
                 <select required={true} name="co_guide_id" value={formData.co_guide_id} onChange={handleChange}>
+                    <option value="">Select Co-Guide</option>
                     {guidesData?.map(guide => (
                         <option key={guide.guide_id} value={guide.guide_id}>{guide.name}</option>
                     ))}
@@ -183,6 +191,7 @@ const AddStudentForm = () => {
             <label className="form-label">
                 Gender:
                 <select required={true} name='gender' value={formData.gender} onChange={handleChange}>
+                    <option value="">Select gender</option>
                     <option value="male" selected>Male</option>
                     <option value="female" selected>Female</option>
                     <option value="other" selected>Others</option>
