@@ -21,6 +21,7 @@ import ViewStudentsData from "./pages/ViewStudentsData";
 import AdminsData from "./pages/AdminsData";
 import GuidesData from "./pages/GuidesData";
 import GuideChanges from "./pages/GuideChanges";
+import PreCourses from "./pages/PreCourses";
 
 
 function App() {
@@ -81,6 +82,10 @@ function App() {
     {
       path: "/accounts/third",
       element: <Accounts3 />,
+    },
+    {
+      path: "/precourses",
+      element: <PreCourses />,
     },
     {
       path: "/*",
