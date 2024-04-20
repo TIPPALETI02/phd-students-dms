@@ -7,12 +7,18 @@
 .student-list-container {
     /* max-width: 800px; */
     margin: 0 auto;
+    height:400;
+    width:100%;
+    overflow-x: auto;
+    -ms-layout-grid-char: auto;
+
 }
 
 .student-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+  
 }
 
 .student-table th,

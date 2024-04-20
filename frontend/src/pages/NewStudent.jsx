@@ -155,7 +155,13 @@ const AddStudentForm = () => {
                     <option value="EEE">EEE</option>
                     <option value="MECH">MECH</option>
                     <option value="CIVIL">CIVIL</option>
-                    <option value="CHEM">CHEM</option>
+                    <option value="Pharmacy">Pharmacy</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Mathematics">Mathemtics</option>
+                    <option value="Management Studies">Management Studies</option>
+                    <option value="English">English</option>
                 </select>
             </label>
             <label className="form-label">
@@ -181,8 +187,8 @@ const AddStudentForm = () => {
                 <input required={true} type="text" name="phone" value={formData.phone} onChange={handleChange} />
             </label>
             <label className="form-label">
-            Phone:
-                <input required={true} type="text" name="email" value={formData.phone} onChange={handleChange} />
+            Email:
+                <input required={true} type="text" name="email" value={formData.email} onChange={handleChange} />
             </label>
             <label className="form-label">
                 Address:
@@ -214,7 +220,7 @@ const AddStudentForm = () => {
                 <input required={true} type="datetime-local" name="doa" value={formData.doa} onChange={handleChange} />
             </label>
             <label className="form-label">
-                Father or Husband:
+                Father or Husband or Gaurdian:
                 <input required={true} type="text" name="fatherORhusband" value={formData.fatherORhusband} onChange={handleChange} />
             </label>
             <button type="submit">Submit</button>

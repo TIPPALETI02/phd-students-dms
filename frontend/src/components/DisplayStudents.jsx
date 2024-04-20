@@ -102,6 +102,7 @@ export default function StudentsDetails({ students }) {
                     style={{
                         width: '100%',
                         height: '100%',
+
                     }}
                 />
             }
